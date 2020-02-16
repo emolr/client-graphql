@@ -1,0 +1,6 @@
+schema: ./src/graphql/schema.graphql
+overwrite: true
+generates:
+  ./src/graphql/generated/schema.js:
+    plugins:
+      - graphql-tag-schema

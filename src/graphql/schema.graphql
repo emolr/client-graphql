@@ -1,0 +1,10 @@
+type Query {
+    pokemon(name: String!): Pokemon!
+}
+
+type Pokemon {
+    id: String!
+    name: String!
+    image: String!
+    type: String!
+}
