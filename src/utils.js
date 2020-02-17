@@ -1,46 +1,64 @@
 export function getBackgroundColor(type) {
     switch (type) {
-      case 'normal':
-        return '#ffffff'
+        case 'normal':
+            return '#A5ACAF'
         case 'fighting':
-        return '#ffffff'
+            return '#D56723'
         case 'flying':
-        return '#ffffff'
+            return '#3DC6EE'
         case 'poison':
-        return '#ffffff'
+            return '#B97FC8'
         case 'ground':
-        return '#ffffff'
+            return '#F7DE3F'
         case 'rock':
-        return '#ffffff'
+            return '#A48D21'
         case 'bug':
-        return '#ffffff'
+            return '#739F40'
         case 'ghost':
-        return '#ffffff'
+            return '#7B62A3'
         case 'steel':
-        return '#ffffff'
+            return '#9EB8B8'
         case 'fire':
-        return '#ffffff'
+            return '#FD7D24'
         case 'water':
-        return '#ffffff'
+            return '#4592C4'
         case 'grass':
-        return '#ffffff'
+            return '#9BCC50'
         case 'electric':
-        return '#ffffff'
+            return '#EED535'
         case 'psychic':
-        return '#ffffff'
+            return '#F366B9'
         case 'ice':
-        return '#ffffff'
+            return '#51C4E8'
         case 'dragon':
-        return '#ffffff'
+            return '#F16E56'
         case 'dark':
-        return '#ffffff'
+            return '#707070'
         case 'fairy':
-        return '#ffffff'
+            return '#FDBAEA'
         case 'unknown':
-        return '#ffffff'
+            return '#A3ACAF'
         case 'shadow':
-        return '#ffffff'
-      default:
-        return '#ffffff'
+            return '#A3ACAF'
+        default:
+            return '#A3ACAF'
     }
-  }
+}
+
+export function getPokemonId(previousValues, source) {
+    if (!previousValues) return 1;
+
+    const randomInt = Math.floor(
+        (Math.random() * (150 - 0) + 1)
+    )
+
+    return previousValues.includes(randomInt) ? getPokemonId(previousValues) : randomInt
+}
+
+export function shuffle(a) {
+    for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+}

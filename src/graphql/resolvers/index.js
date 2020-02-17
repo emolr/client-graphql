@@ -1,8 +1,9 @@
-import { Pokemon, PokemonImage, PokemonType } from "./Pokemon";
+import { Pokemon, PokemonImage, PokemonType, Pokemons } from "./Pokemon";
 
 export const resolvers = {
     Query: {
-        pokemon: Pokemon
+        pokemon: Pokemon,
+        pokemons: Pokemons
     },
     Pokemon: {
         image: PokemonImage,

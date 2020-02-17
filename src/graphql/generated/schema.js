@@ -1,18 +1,22 @@
 
-import gql from 'graphql-tag'
+const gql = require('graphql-tag')
 
-export const schema = gql`
+const schema = gql`
   type Pokemon {
-  id: String!
+  id: Int!
   name: String!
   image: String!
   type: String!
 }
 
 type Query {
-  pokemon(name: String!): Pokemon!
+  pokemon(id: Int!): Pokemon!
+  pokemons(offset: Int, first: Int): [Pokemon!]!
 }
 
 `
 
-export default schema
+module.exports = {
+  default: schema,
+  schema
+}

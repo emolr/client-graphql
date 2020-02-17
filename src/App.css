@@ -1,0 +1,37 @@
+.main {
+    min-height: 100vh;
+    min-width: 100vw;
+    transition: background-color .2s ease-in-out;
+}
+
+.pokemon {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    mask-image: var(--pokemon-image);
+    mask-size: 100% auto;
+    background-color: grey;
+    transition: opacity .2s ease-in-out;
+}
+
+.pokemon__img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding-bottom: 100%;
+    background-image: var(--pokemon-image);
+    background-size: 100% auto;
+    opacity: 1;
+    transition: opacity .2s ease-in-out;
+}
+
+.pokemon:after, .pokemon__img:after {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+  }
+
+.pokemon--is-masked > .pokemon__img {
+    opacity: 0;
+}
