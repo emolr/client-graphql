@@ -1,4 +1,4 @@
-import React, { useState, createRef, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { getBackgroundColor, getPokemonId } from './utils'
 import './App.css';
 

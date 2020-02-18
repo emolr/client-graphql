@@ -60,33 +60,39 @@
     top: 50%;
     left: 50%;
     width: 80%;
-    mask-image: var(--pokemon-character-image);
-    mask-size: 100% auto;
-    background-color: rgba(0,0,0,0.6);
-    transition: opacity .2s ease-in-out;
+    background-image: var(--pokemon-character-image);
+    background-size: 100% auto;
+    filter: contrast(1) brightness(1);
+    transition: all .2s ease-in-out;
     transform: translate(-50%, -30%);
     animation: floating 3s ease-in-out infinite forwards alternate;
+    opacity: 0;
 }
 
-.pokemon-character__img {
+.pokemon-character--is-masked {
+    filter: contrast(0) brightness(0);
+    opacity: .6;
+}
+
+.pokemon-character-loaded {
+    opacity: 1;
+}
+
+.pokemon-character img {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    padding-bottom: 100%;
-    background-image: var(--pokemon-character-image);
-    background-size: 100% auto;
-    opacity: 1;
-    transition: opacity .2s ease-in-out;
+    height: 100%;
 }
 
 .pokemon-character:after, .pokemon-character__img:after {
     content: "";
     display: block;
     padding-bottom: 100%;
-  }
+}
 
-.pokemon-character--is-masked > .pokemon-character__img {
+.pokemon-character--is-masked > img {
     opacity: 0;
 }
 

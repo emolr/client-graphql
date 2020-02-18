@@ -9,9 +9,7 @@ export const Pokemon = ({src, visible}) => {
         const img = new Image()
         
         img.onload = () => {
-            setTimeout(() => {
-                setImageLoaded(true)
-            }, 1000)
+            setImageLoaded(true)
         }
 
         img.src = src;
@@ -20,10 +18,10 @@ export const Pokemon = ({src, visible}) => {
     return (
         <div className="pokemon-placeholder">
             <div 
-                className={"pokemon-character " + (!visible ? 'pokemon-character--is-masked' : '')} 
-                style={{'--pokemon-character-image': `url("${src}")`, opacity: imageLoaded ? '1' : '0'}}
+                className={"pokemon-character " + (!visible ? 'pokemon-character--is-masked ' : '' + imageLoaded ? 'pokemon-character-loaded': '')} 
+                style={{backgroundImage: `url("${src}")`}}
             >
-                <div className="pokemon-character__img"></div>
+                <img src={src} alt="pokemon" />
             </div>
         </div>
     )
