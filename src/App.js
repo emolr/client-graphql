@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, createRef, useRef } from 'react';
 import { getBackgroundColor, getPokemonId } from './utils'
 import './App.css';
 
@@ -26,18 +26,19 @@ function PokemonCatcher() {
   const [guessedPokemons, setQuessedPokemons] = useState([])
   const [unguessedPokemons, setUnguessedPokemons] = useState([])
   const [showResult, setShowResult] = useState(false)
-
-  const { data: pokemonData, loading: pokemonLoading, error: pokemonError, refetch: refetchPokemon} = useQuery(POKEMON_QUERY, {
+  const scoreRef = useRef(null)
+  const { data: pokemonData, loading: pokemonLoading, error: pokemonError, refetch: refetchPokemon } = useQuery(POKEMON_QUERY, {
     variables: {
       id: initalPokemonId
     }
   })
 
   const getRandomPokemon = () => {
+
     if (pokemonLoading) {
       return
     }
-    
+
     const pokemonId = getPokemonId(
       [...fetchedPokemons.map(o => o.id), initalPokemonId]
     )
@@ -45,8 +46,13 @@ function PokemonCatcher() {
     refetchPokemon({
       id: pokemonId
     })
-      .then(({data}) => {
+      .then(({ data }) => {
         setShowResult(false)
+
+        if (scoreRef.current) {
+          scoreRef.current.classList.remove('font-pokemon-score__result--is-animating')
+        }
+
         if (fetchedPokemons.findIndex(o => o.id === data.pokemon.id) < 0) {
           setFetchedPokemons([...fetchedPokemons, data.pokemon])
         }
@@ -58,6 +64,9 @@ function PokemonCatcher() {
 
   const guessPokemon = (pokemon) => {
     if (pokemon.name.toLowerCase() === pokemonData.pokemon.name.toLowerCase()) {
+      if (scoreRef.current) {
+        scoreRef.current.classList.add('font-pokemon-score__result--is-animating')
+      }
       setQuessedPokemons([...guessedPokemons, pokemonData.pokemon])
     } else {
       setUnguessedPokemons([...unguessedPokemons, pokemonData.pokemon])
@@ -71,31 +80,40 @@ function PokemonCatcher() {
   }
 
   return (
-    <div className="main" style={{backgroundColor: getBackgroundColor(pokemonData?.pokemon?.type)}}>
-      <div>Guessed pokemons: {guessedPokemons.length}</div>
-      <div>
-        {pokemonLoading && <div>Loading...</div>}
-        {(pokemonData && !pokemonLoading && !pokemonError) && (
-          <div style={{padding: '24px'}}>
-            {/* <h2>{pokemonData.pokemon.name}</h2>
-            <div>type: {pokemonData.pokemon.type}</div> */}
-            <Pokemon src={pokemonData.pokemon.image} visible={showResult} />
-            <PokemonChoices onChange={(e) => guessPokemon(e)} pokemon={pokemonData.pokemon} disabled={showResult} />
-            {/* <img src={pokemonData.pokemon.image} alt={`A fronting ${pokemonData.name} appeared`} style={{width: '400px', height: 'auto'}}/> */}
-          </div>
-        )}
-        {pokemonError && pokemonError.graphQLErrors.map(err => (
-          <div key={err.message}>
-            {err.message}
-          </div>
-        ))}
+    <div className="main" style={{ backgroundColor: getBackgroundColor(pokemonData?.pokemon?.type) }}>
+      <div className="font-pokemon font-pokemon-score">
+        <div className="font-pokemon-score__result" ref={scoreRef}>{guessedPokemons.length}</div>
+        <div className="font-pokemon-score__left">{150 - fetchedPokemons?.length}</div>
       </div>
+      <div className="main__header">
+        <h2 className="font-pokemon font-pokemon--title">Who's that Pokémon?</h2>
+      </div>
+      {(!pokemonData && pokemonLoading) && <div>Loading...</div>}
+      {(pokemonData && !pokemonError) && (
+        <div className="main__body">
+          <div className="main__body__center">
+            <Pokemon src={pokemonData.pokemon.image} visible={showResult} />
+            {!showResult && (
+              <h2 className="font-pokemon font-pokemon-name">?</h2>
+            )}
+            {showResult && (
+              <h2 className="font-pokemon font-pokemon-name font-pokemon--rotate">{pokemonData.pokemon.name}</h2>
+            )}
+            <PokemonChoices onChange={(e) => guessPokemon(e)} pokemon={pokemonData.pokemon} disabled={showResult} countdown={0} />
+          </div>
+        </div>
+      )}
+      {pokemonError && pokemonError.graphQLErrors.map(err => (
+        <div key={err.message}>
+          {err.message}
+        </div>
+      ))}
     </div>
   )
 }
 
 function App() {
-  
+
 
   return (
     <ApolloProvider client={graphqlClient}>
