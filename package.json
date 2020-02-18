@@ -46,6 +46,6 @@
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^1.12.2",
-    "graphql-tag-schema": "^1.0.4"
+    "graphql-tag-schema": "^1.0.5"
   }
 }

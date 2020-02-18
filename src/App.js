@@ -88,7 +88,7 @@ function PokemonCatcher() {
       <div className="main__header">
         <h2 className="font-pokemon font-pokemon--title">Who's that Pokémon?</h2>
       </div>
-      {(!pokemonData && pokemonLoading) && <div>Loading...</div>}
+      {/* {(!pokemonData && pokemonLoading) && <div>Loading...</div>} */}
       {(pokemonData && !pokemonError) && (
         <div className="main__body">
           <div className="main__body__center">

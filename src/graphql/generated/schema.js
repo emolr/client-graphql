@@ -1,7 +1,7 @@
 
 const gql = require('graphql-tag')
 
-const schema = gql`
+export const schema = gql`
   type Pokemon {
   id: Int!
   name: String!
@@ -16,7 +16,4 @@ type Query {
 
 `
 
-module.exports = {
-  default: schema,
-  schema
-}
+export default schema
