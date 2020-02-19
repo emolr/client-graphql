@@ -13,6 +13,7 @@
     "apollo-link-schema": "^1.2.4",
     "apollo-server": "^2.10.1",
     "axios": "^0.19.2",
+    "classnames": "^2.2.6",
     "concurrently": "^5.1.0",
     "graphql": "^14.6.0",
     "graphql-tag": "^2.10.3",
