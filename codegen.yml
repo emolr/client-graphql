@@ -1,6 +1,10 @@
 schema: ./src/graphql/schema.graphql
 overwrite: true
 generates:
-  ./src/graphql/generated/schema.js:
+  ./src/graphql/generated/schema.ts:
     plugins:
       - graphql-tag-schema
+  ./src/graphql/generated/resolvers-types.ts:
+    plugins:
+      - typescript
+      - typescript-resolvers

@@ -4,7 +4,7 @@ import { schema as typeDefs } from './generated/schema';
 
 export const schema = makeExecutableSchema({
   typeDefs,
-  resolvers: resolvers
+  resolvers: resolvers as any
 });
 
 export default schema;
