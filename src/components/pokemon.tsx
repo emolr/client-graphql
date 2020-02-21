@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import classNames from 'classnames';
 
-export const Pokemon = ({ src, visible }) => {
+export interface PokemonProps {
+  src: string;
+  visible?: boolean;
+}
+
+export const Pokemon = ({ src, visible }: PokemonProps) => {
   const [imageLoaded, setImageLoaded] = useState(false);
 
   useEffect(() => {

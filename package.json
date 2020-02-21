@@ -67,6 +67,7 @@
     "@graphql-codegen/typescript": "^1.12.2",
     "@graphql-codegen/typescript-operations": "^1.12.2",
     "@graphql-codegen/typescript-resolvers": "^1.12.2",
+    "@types/classnames": "^2.2.9",
     "graphql-tag-schema": "^1.0.5",
     "husky": "^4.2.3",
     "lint-staged": "^10.0.7",

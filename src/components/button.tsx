@@ -7,7 +7,7 @@ export const Button = ({
   disabled,
   className,
   ...rest
-}) => {
+}: any) => {
   return (
     <div className={'button ' + className} {...rest}>
       <button className="button__element" onClick={onClick} disabled={disabled}>

@@ -3,6 +3,7 @@ import { shuffle, getPokemonId } from '../utils';
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
 import { Button } from './button';
+import { Pokemon as PokemonType } from '../graphql/generated/types';
 
 const POKEMONS_QUERY = gql`
   query Pokemons($first: Int) {
@@ -12,15 +13,19 @@ const POKEMONS_QUERY = gql`
     }
   }
 `;
-const PokemonChoices = ({ pokemon, onChange, disabled, countdown }) => {
-  const [pokemonChoices, setPokemonChoices] = useState([]);
-  const [selection, setSelection] = useState({ id: null });
+const PokemonChoices = ({ pokemon, onChange, disabled, countdown }: any) => {
+  const [pokemonChoices, setPokemonChoices]: any = useState([]);
+  const [selection, setSelection]: any = useState({ id: null });
 
-  const updateChoices = (pokemon, data) => {
+  const updateChoices = (pokemon: PokemonType, data: any) => {
     const firstId = getPokemonId([pokemon.id]);
-    const firstChoice = data.pokemons.find(o => o.id === firstId);
+    const firstChoice = data.pokemons.find(
+      (o: PokemonType) => o.id === firstId
+    );
     const secondId = getPokemonId([pokemon.id, firstId]);
-    const secondChoice = data.pokemons.find(o => o.id === secondId);
+    const secondChoice = data.pokemons.find(
+      (o: PokemonType) => o.id === secondId
+    );
 
     setPokemonChoices(shuffle([firstChoice, secondChoice, pokemon]));
   };
@@ -46,7 +51,7 @@ const PokemonChoices = ({ pokemon, onChange, disabled, countdown }) => {
     }
   }, [pokemon, pokemonsData]);
 
-  const handleClick = pokemonChoice => {
+  const handleClick = (pokemonChoice: Partial<PokemonType>) => {
     setSelection(pokemonChoice);
     onChange(pokemonChoice);
   };
@@ -59,7 +64,7 @@ const PokemonChoices = ({ pokemon, onChange, disabled, countdown }) => {
       }
     >
       {!!pokemonsLoading}
-      {pokemonChoices?.map((pokemonChoice, index) => (
+      {pokemonChoices?.map((pokemonChoice: any, index: number) => (
         <Button
           key={'pokemon' + index}
           onClick={() => handleClick(pokemonChoice)}
