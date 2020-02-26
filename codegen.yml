@@ -18,3 +18,10 @@ generates:
       - '!./src/graphql/api/**/*.graphql'
     plugins:
       - typescript-document-nodes
+  ./src/graphql/generated/operations.ts:
+    documents: 
+      - './src/**/*.graphql'
+      - '!./src/graphql/api/**/*.graphql'
+    plugins:
+      - typescript
+      - typescript-operations

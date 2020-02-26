@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 
-export const PokemonChoicesQuery = gql`
-  query PokemonChoicesQuery($first: Int) {
+export const Pokemons = gql`
+  query Pokemons($first: Int) {
     pokemons(first: $first) {
       id
       name

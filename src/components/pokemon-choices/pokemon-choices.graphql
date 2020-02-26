@@ -1,4 +1,4 @@
-query PokemonChoicesQuery($first: Int) {
+query Pokemons($first: Int) {
     pokemons(first: $first) {
         id
         name

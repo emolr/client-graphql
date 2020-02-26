@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { shuffle, getPokemonId as getRandomPokemonId } from '../../utils';
+import { shuffle, getRandomNumberInRange } from '../../utils';
 import { useQuery } from '@apollo/react-hooks';
 import { Button } from '../button/button';
 import { Pokemon as PokemonType } from '../../graphql/generated/types';
-import { PokemonChoicesQuery } from '../../graphql/generated/documents';
+import { Pokemons } from '../../graphql/generated/documents';
+import { PokemonsQuery } from '../../graphql/generated/operations';
+
+export interface PokemonChoice extends Pick<PokemonType, 'id' | 'name'> {}
 
 export interface PokemonChoicesProps {
   pokemon: PokemonType;
   disabled: boolean;
-  onChange(pokemon: Partial<PokemonType>): void;
+  onChange(pokemon: PokemonChoice): void;
 }
 
 const PokemonChoices = ({
@@ -16,17 +19,12 @@ const PokemonChoices = ({
   onChange,
   disabled
 }: PokemonChoicesProps) => {
-  const [pokemonChoices, setPokemonChoices] = useState<
-    Partial<PokemonType>[]
-  >();
-  const [selection, setSelection] = useState<Partial<PokemonType>>();
+  const [pokemonChoices, setPokemonChoices] = useState<PokemonChoice[]>();
+  const [selection, setSelection] = useState<PokemonChoice>();
 
-  const updateChoices = (
-    pokemon: PokemonType,
-    pokemons: Partial<PokemonType>[]
-  ) => {
-    const firstId = getRandomPokemonId([pokemon.id]);
-    const secondId = getRandomPokemonId([pokemon.id, firstId]);
+  const updateChoices = (pokemon: PokemonType, pokemons: PokemonChoice[]) => {
+    const firstId = getRandomNumberInRange([pokemon.id]);
+    const secondId = getRandomNumberInRange([pokemon.id, firstId]);
     const choices = [
       ...[firstId, secondId].map(id =>
         pokemons.find(pokemon => pokemon.id === id)
@@ -37,26 +35,25 @@ const PokemonChoices = ({
     setPokemonChoices(shuffle(choices));
   };
 
-  const { data: pokemonsData, loading: pokemonsLoading } = useQuery(
-    PokemonChoicesQuery,
-    {
-      variables: { first: 150 },
-      fetchPolicy: 'cache-first',
-      onCompleted: ({ pokemons }) => {
-        if (!pokemons || !pokemon) return;
-        updateChoices(pokemon, pokemons);
-      }
+  const { data: pokemonsData, loading: pokemonsLoading } = useQuery<
+    PokemonsQuery
+  >(Pokemons, {
+    variables: { first: 150 },
+    fetchPolicy: 'cache-first',
+    onCompleted: ({ pokemons }) => {
+      if (!pokemons || !pokemon) return;
+      updateChoices(pokemon, pokemons);
     }
-  );
+  });
 
   useEffect(() => {
     if (pokemonsData) {
       setSelection(undefined);
-      updateChoices(pokemon, pokemonsData?.pokemons);
+      updateChoices(pokemon, pokemonsData.pokemons);
     }
   }, [pokemon, pokemonsData]);
 
-  const handleClick = (pokemonChoice: Partial<PokemonType>) => {
+  const handleClick = (pokemonChoice: PokemonChoice) => {
     setSelection(pokemonChoice);
     onChange(pokemonChoice);
   };

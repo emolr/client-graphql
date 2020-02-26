@@ -67,14 +67,19 @@ export function getBackgroundColor(type: PokemonType) {
   }
 }
 
-export const getPokemonId = (previousValues: number[]): number => {
-  if (!previousValues) return 1;
+export const getRandomNumberInRange = (
+  except: number[],
+  min = 1,
+  max = 150
+): number => {
+  if (!except) {
+    return min;
+  }
 
-  const randomInt = Math.floor(Math.random() * (150 - 0) + 1);
-
-  return previousValues.includes(randomInt)
-    ? getPokemonId(previousValues)
-    : randomInt;
+  const randomNumber = Math.floor(Math.random() * max + min);
+  return except.includes(randomNumber)
+    ? getRandomNumberInRange(except, min, max)
+    : randomNumber;
 };
 
 export const shuffle = (a: any[]) => {

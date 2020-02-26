@@ -1,11 +1,13 @@
 import React, { useState, useRef } from 'react';
-import { getBackgroundColor, getPokemonId } from './utils';
+import { getBackgroundColor, getRandomNumberInRange } from './utils';
 import './App.css';
 
 import { ApolloProvider, useQuery } from '@apollo/react-hooks';
 import { graphqlClient } from './graphql-client';
 import gql from 'graphql-tag';
-import PokemonChoices from './components/pokemon-choices/pokemon-choices';
+import PokemonChoices, {
+  PokemonChoice
+} from './components/pokemon-choices/pokemon-choices';
 import { Pokemon as PokemonType } from './graphql/generated/types';
 import { Pokemon } from './components/pokemon';
 
@@ -20,7 +22,7 @@ const POKEMON_QUERY = gql`
   }
 `;
 
-const initalPokemonId = getPokemonId([]);
+const initalPokemonId = getRandomNumberInRange([]);
 
 function PokemonCatcher() {
   const [fetchedPokemons, setFetchedPokemons]: any = useState([]);
@@ -44,7 +46,7 @@ function PokemonCatcher() {
       return;
     }
 
-    const pokemonId = getPokemonId([
+    const pokemonId = getRandomNumberInRange([
       ...fetchedPokemons.map((o: { id: number }) => o.id),
       initalPokemonId
     ]);
@@ -72,7 +74,7 @@ function PokemonCatcher() {
       });
   };
 
-  const guessPokemon = (pokemon: PokemonType) => {
+  const guessPokemon = (pokemon: PokemonChoice) => {
     if (pokemon.name.toLowerCase() === pokemonData.pokemon.name.toLowerCase()) {
       scoreRef?.current?.classList.add(
         'font-pokemon-score__result--is-animating'
@@ -123,7 +125,9 @@ function PokemonCatcher() {
               </h2>
             )}
             <PokemonChoices
-              onChange={(e: PokemonType) => guessPokemon(e)}
+              onChange={(e: Pick<PokemonType, 'id' | 'name'>) =>
+                guessPokemon(e)
+              }
               pokemon={pokemonData.pokemon}
               disabled={showResult}
             />
