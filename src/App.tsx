@@ -5,7 +5,7 @@ import './App.css';
 import { ApolloProvider, useQuery } from '@apollo/react-hooks';
 import { graphqlClient } from './graphql-client';
 import gql from 'graphql-tag';
-import PokemonChoices from './components/pokemon-choices';
+import PokemonChoices from './components/pokemon-choices/pokemon-choices';
 import { Pokemon as PokemonType } from './graphql/generated/types';
 import { Pokemon } from './components/pokemon';
 
@@ -126,7 +126,6 @@ function PokemonCatcher() {
               onChange={(e: PokemonType) => guessPokemon(e)}
               pokemon={pokemonData.pokemon}
               disabled={showResult}
-              countdown={0}
             />
           </div>
         </div>

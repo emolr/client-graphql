@@ -12,9 +12,9 @@ generates:
     plugins:
       - typescript
       - typescript-operations
-  # ./src/graphql/generated/documents.ts:
-  #   documents: 
-  #     - './src/**/*.graphql'
-  #     - '!./src/graphql/api/**/*.graphql'
-  #   plugins:
-  #     - typescript-document-nodes
+  ./src/graphql/generated/documents.ts:
+    documents: 
+      - './src/**/*.graphql'
+      - '!./src/graphql/api/**/*.graphql'
+    plugins:
+      - typescript-document-nodes

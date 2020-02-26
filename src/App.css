@@ -114,7 +114,7 @@
 }
 
 /* Button */
-.button {
+/* .button {
   position: relative;
   border-radius: 20em;
   overflow: hidden;
@@ -139,7 +139,7 @@
   position: relative;
   z-index: 2;
   cursor: pointer;
-}
+} */
 
 .button__countdown {
   position: absolute;
@@ -167,12 +167,12 @@
 .pokemon-choices.pokemon-choices--has-selection .button {
   opacity: 0.2;
 }
-
+/* 
 .pokemon-choices .button.button-choices--is-selected {
   opacity: 1;
   transform: scale(1.1);
   background-color: #fff;
-}
+} */
 
 /* Font */
 

@@ -1,0 +1,33 @@
+.po-button {
+  position: relative;
+  border-radius: var(--po-button-border-radius, 20em);
+  overflow: hidden;
+  background-color: var(--po-button-color-background, rgba(255, 255, 255, 0.2));
+  transition: var(--po-button-transition, all 0.2s ease-in-out);
+
+  &:hover {
+    background-color: var(
+      --po-button-color-background-hover,
+      rgba(255, 255, 255, 0.4)
+    );
+    transform: var(--po-button-transform-hover, scale(1.05));
+  }
+
+  &--is-selected,
+  &--is-selected:hover {
+    transform: var(--po-button-transform-selected, scale(1.1));
+    background-color: var(--po-button-color-background-selected, #fff);
+  }
+
+  &__element {
+    appearance: none;
+    border: none;
+    background: transparent;
+    color: var(--po-button-color-text, rgba(0, 0, 0, 0.9));
+    font-size: var(--po-button-font-size, 16px);
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+  }
+}
