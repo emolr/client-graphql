@@ -1,0 +1,14 @@
+.pokemon-choices {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-column-gap: var(--pokemon-choices-column-gap, 16px);
+
+  max-width: var(--pokemon-choices-max-width, 560px);
+  margin: 0 auto;
+  height: var(--pokemon-choices-height, 10vh);
+  max-height: var(--pokemon-choices-max-height, 56px);
+}
+
+.pokemon-choices--has-selection .button {
+  opacity: var(--pokemon-choices-selection-button-opacity, 0.2);
+}

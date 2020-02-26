@@ -37,68 +37,68 @@ export type QueryPokemonsArgs = {
   first?: Maybe<Scalars['Int']>;
 };
 
-export type PokemonChoicesPokemonsQueryVariables = {
+export type PokemonChoicesQueryQueryVariables = {
   first?: Maybe<Scalars['Int']>;
 };
 
-export type PokemonChoicesPokemonsQuery = { __typename?: 'Query' } & {
+export type PokemonChoicesQueryQuery = { __typename?: 'Query' } & {
   pokemons: Array<{ __typename?: 'Pokemon' } & Pick<Pokemon, 'id' | 'name'>>;
 };
 
-export const PokemonChoicesPokemonsDocument = gql`
-  query PokemonChoicesPokemons($first: Int) {
+export const PokemonChoicesQueryDocument = gql`
+  query PokemonChoicesQuery($first: Int) {
     pokemons(first: $first) {
       id
       name
     }
   }
 `;
-export type PokemonChoicesPokemonsComponentProps = Omit<
+export type PokemonChoicesQueryComponentProps = Omit<
   ApolloReactComponents.QueryComponentOptions<
-    PokemonChoicesPokemonsQuery,
-    PokemonChoicesPokemonsQueryVariables
+    PokemonChoicesQueryQuery,
+    PokemonChoicesQueryQueryVariables
   >,
   'query'
 >;
 
-export const PokemonChoicesPokemonsComponent = (
-  props: PokemonChoicesPokemonsComponentProps
+export const PokemonChoicesQueryComponent = (
+  props: PokemonChoicesQueryComponentProps
 ) => (
   <ApolloReactComponents.Query<
-    PokemonChoicesPokemonsQuery,
-    PokemonChoicesPokemonsQueryVariables
+    PokemonChoicesQueryQuery,
+    PokemonChoicesQueryQueryVariables
   >
-    query={PokemonChoicesPokemonsDocument}
+    query={PokemonChoicesQueryDocument}
     {...props}
   />
 );
 
-export type PokemonChoicesPokemonsProps<
+export type PokemonChoicesQueryProps<
   TChildProps = {}
 > = ApolloReactHoc.DataProps<
-  PokemonChoicesPokemonsQuery,
-  PokemonChoicesPokemonsQueryVariables
+  PokemonChoicesQueryQuery,
+  PokemonChoicesQueryQueryVariables
 > &
   TChildProps;
-export function withPokemonChoicesPokemons<TProps, TChildProps = {}>(
+export function withPokemonChoicesQuery<TProps, TChildProps = {}>(
   operationOptions?: ApolloReactHoc.OperationOption<
     TProps,
-    PokemonChoicesPokemonsQuery,
-    PokemonChoicesPokemonsQueryVariables,
-    PokemonChoicesPokemonsProps<TChildProps>
+    PokemonChoicesQueryQuery,
+    PokemonChoicesQueryQueryVariables,
+    PokemonChoicesQueryProps<TChildProps>
   >
 ) {
   return ApolloReactHoc.withQuery<
     TProps,
-    PokemonChoicesPokemonsQuery,
-    PokemonChoicesPokemonsQueryVariables,
-    PokemonChoicesPokemonsProps<TChildProps>
-  >(PokemonChoicesPokemonsDocument, {
-    alias: 'pokemonChoicesPokemons',
+    PokemonChoicesQueryQuery,
+    PokemonChoicesQueryQueryVariables,
+    PokemonChoicesQueryProps<TChildProps>
+  >(PokemonChoicesQueryDocument, {
+    alias: 'pokemonChoicesQuery',
     ...operationOptions
   });
 }
-export type PokemonChoicesPokemonsQueryResult = ApolloReactCommon.QueryResult<
-  PokemonChoicesPokemonsQuery,
-  PokemonChoicesPokemonsQueryVariables
+export type PokemonChoicesQueryQueryResult = ApolloReactCommon.QueryResult<
+  PokemonChoicesQueryQuery,
+  PokemonChoicesQueryQueryVariables
 >;

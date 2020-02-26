@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Pokemon as PokemonType } from '../../graphql/generated/types';
-import { PokemonChoicesPokemonsComponent } from '../../graphql/generated/react-apollo';
+import { PokemonChoicesQueryComponent } from '../../graphql/generated/react-apollo';
 import { PokemonChoicesButtons } from './pokemon-choices-buttons';
 import cn from 'classnames';
+import './pokemon-choices.scss';
 
 export interface PokemonChoice extends Pick<PokemonType, 'id' | 'name'> {}
 
@@ -29,7 +30,7 @@ const PokemonChoices = ({
   };
 
   return (
-    <PokemonChoicesPokemonsComponent
+    <PokemonChoicesQueryComponent
       variables={{ first: 150 }}
       fetchPolicy="cache-first"
     >
@@ -53,7 +54,7 @@ const PokemonChoices = ({
           )}
         </div>
       )}
-    </PokemonChoicesPokemonsComponent>
+    </PokemonChoicesQueryComponent>
   );
 };
 
