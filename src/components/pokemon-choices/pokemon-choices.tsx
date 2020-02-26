@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { shuffle, getRandomNumberInRange } from '../../utils';
-import { useQuery } from '@apollo/react-hooks';
-import { Button } from '../button/button';
 import { Pokemon as PokemonType } from '../../graphql/generated/types';
-import { Pokemons } from '../../graphql/generated/documents';
-import { PokemonsQuery } from '../../graphql/generated/operations';
+import { PokemonChoicesPokemonsComponent } from '../../graphql/generated/react-apollo';
+import { PokemonChoicesButtons } from './pokemon-choices-buttons';
+import cn from 'classnames';
 
 export interface PokemonChoice extends Pick<PokemonType, 'id' | 'name'> {}
 
@@ -19,64 +17,43 @@ const PokemonChoices = ({
   onChange,
   disabled
 }: PokemonChoicesProps) => {
-  const [pokemonChoices, setPokemonChoices] = useState<PokemonChoice[]>();
   const [selection, setSelection] = useState<PokemonChoice>();
 
-  const updateChoices = (pokemon: PokemonType, pokemons: PokemonChoice[]) => {
-    const firstId = getRandomNumberInRange([pokemon.id]);
-    const secondId = getRandomNumberInRange([pokemon.id, firstId]);
-    const choices = [
-      ...[firstId, secondId].map(id =>
-        pokemons.find(pokemon => pokemon.id === id)
-      ),
-      pokemon
-    ];
-
-    setPokemonChoices(shuffle(choices));
-  };
-
-  const { data: pokemonsData, loading: pokemonsLoading } = useQuery<
-    PokemonsQuery
-  >(Pokemons, {
-    variables: { first: 150 },
-    fetchPolicy: 'cache-first',
-    onCompleted: ({ pokemons }) => {
-      if (!pokemons || !pokemon) return;
-      updateChoices(pokemon, pokemons);
-    }
-  });
-
   useEffect(() => {
-    if (pokemonsData) {
-      setSelection(undefined);
-      updateChoices(pokemon, pokemonsData.pokemons);
-    }
-  }, [pokemon, pokemonsData]);
+    setSelection(undefined);
+  }, [pokemon]);
 
-  const handleClick = (pokemonChoice: PokemonChoice) => {
+  const selectPokemon = (pokemonChoice: PokemonChoice) => {
     setSelection(pokemonChoice);
     onChange(pokemonChoice);
   };
 
   return (
-    <div
-      className={
-        'pokemon-choices ' +
-        (selection?.id !== null ? 'pokemon-choices--has-selection' : '')
-      }
+    <PokemonChoicesPokemonsComponent
+      variables={{ first: 150 }}
+      fetchPolicy="cache-first"
     >
-      {!!pokemonsLoading}
-      {pokemonChoices?.map((pokemonChoice: any, index: number) => (
-        <Button
-          key={'pokemon' + index}
-          onClick={() => handleClick(pokemonChoice)}
-          disabled={disabled}
-          selected={pokemonChoice.id === selection?.id}
+      {({ data }) => (
+        <div
+          className={cn([
+            {
+              'pokemon-choices--has-selection': selection
+            },
+            'pokemon-choices'
+          ])}
         >
-          {pokemonChoice.name}
-        </Button>
-      ))}
-    </div>
+          {data && (
+            <PokemonChoicesButtons
+              pokemon={pokemon}
+              pokemons={data.pokemons}
+              selected={selection}
+              onSelect={selectPokemon}
+              disabled={disabled}
+            />
+          )}
+        </div>
+      )}
+    </PokemonChoicesPokemonsComponent>
   );
 };
 

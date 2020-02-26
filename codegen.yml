@@ -18,10 +18,11 @@ generates:
       - '!./src/graphql/api/**/*.graphql'
     plugins:
       - typescript-document-nodes
-  ./src/graphql/generated/operations.ts:
+  ./src/graphql/generated/react-apollo.tsx:
     documents: 
       - './src/**/*.graphql'
       - '!./src/graphql/api/**/*.graphql'
     plugins:
       - typescript
       - typescript-operations
+      - typescript-react-apollo
