@@ -1,9 +1,9 @@
 schema: ./src/graphql/api/schema.graphql
 overwrite: true
 generates:
-  ./src/graphql/api/generated/schema.ts:
-    plugins:
-      - graphql-tag-schema
+  # ./src/graphql/api/generated/schema.ts:
+  #   plugins:
+  #     - graphql-tag-schema
   ./src/graphql/api/generated/resolvers-types.ts:
     plugins:
       - typescript
