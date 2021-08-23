@@ -39,7 +39,7 @@ export const Pokemons: QueryResolvers['pokemons'] = async (
 };
 
 export const PokemonImage: PokemonResolvers['image'] = ({ id }) => {
-  return `https://pokeres.bastionbot.org/images/pokemon/${id}.png`;
+  return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
 };
 
 export const PokemonType: PokemonResolvers['type'] = ({ types }: any) => {

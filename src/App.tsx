@@ -144,7 +144,7 @@ function PokemonCatcher() {
 
 const App = () => {
   return (
-    <ApolloProvider client={graphqlClient}>
+    <ApolloProvider client={graphqlClient as any}>
       <PokemonCatcher />
     </ApolloProvider>
   );
