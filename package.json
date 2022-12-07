@@ -77,7 +77,7 @@
     "graphql-tag-schema": "^1.0.6",
     "husky": "^7.0.1",
     "lint-staged": "^11.1.2",
-    "node-sass": "^6.0.1",
+    "node-sass": "^7.0.0",
     "prettier": "^2.3.2"
   }
 }
