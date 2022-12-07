@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Pokéquiz",
+  "name": "Who's that pokémon?",
   "icons": [
     {
       "src": "favicon.ico",
