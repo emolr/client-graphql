@@ -1,4 +1,4 @@
-import { ApolloError } from 'apollo-server-errors';
+import { ApolloError } from '@landingexp/apollo-server-errors';
 import { QueryResolvers, PokemonResolvers } from '../generated/resolvers-types';
 
 export const Pokemon: QueryResolvers['pokemon'] = async (
@@ -9,7 +9,7 @@ export const Pokemon: QueryResolvers['pokemon'] = async (
   try {
     const { data } = await http.get(`pokemon/${id}`);
     return data;
-  } catch (err) {
+  } catch (err: any) {
     return new ApolloError(err.response.data, err.response.status);
   }
 };
@@ -33,7 +33,7 @@ export const Pokemons: QueryResolvers['pokemons'] = async (
         name: pokemon.name
       };
     });
-  } catch (err) {
+  } catch (err: any) {
     return new ApolloError(err.response.data, err.response.status);
   }
 };
